@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace MarketProgram.Data.Entities
 {
-    public class ProductSale: BaseEntity
-    {   
+    public class ProductSale : BaseEntity
+    {
         public int No { get; set; }
         public double Price { get; set; }
         public string SaleItem { get; set; }
         public DateTime Date { get; set; }
+
 
     }
 }

@@ -39,15 +39,39 @@ namespace MarketProgram.Data.Services
             product.Id = Id;
 
             Product.Add(product);
-            return product.Id; 
+            return product.Id;
         }
 
         public void DeleteProduct(int key)
         {
-            int index = Product.FindIndex(p => p.Id == key);
-                if (index == -1)
+            int index = Product.FindIndex(d => d.Id == key);
+            if (index == -1)
                 throw new KeyNotFoundException();
             Product.RemoveAt(index);
+        }
+
+        public int AddSales(int No, string SaleItem)
+        {
+            if (No == null)
+                throw new ArgumentNullException("No");
+            if (string.IsNullOrEmpty(SaleItem))
+                throw new ArgumentNullException("SaleItem");
+
+            ProductSale productSale = new();
+            productSale.No = No;
+            productSale.SaleItem = SaleItem;
+            ProductSales.Add(productSale);
+            return productSale.No;
+
+            
+
+        }
+        public void DeleteSales(int no)
+        {
+            int index = ProductSales.FindIndex(d => d.No == no);
+            if (index == -1)
+                throw new KeyNotFoundException();
+            ProductSales.RemoveAt(index);
         }
     }
 }
