@@ -8,9 +8,16 @@ namespace MarketProgram.Data.Entities
 {
     public class Products 
     {
+        private int count;
         public string Name { get; set; }
         public double ProductPrice { get; set; }
         public int Quantity { get; set; }
         public int Id { get; set; }
+
+        public Products()
+        {
+            count++;
+            Id = count;
+        }
     }
 }

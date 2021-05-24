@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarketProgram.Data.Common;
 
 namespace MarketProgram.Data.Services
 {
-    public class MarketManage
+    public class MarketManage:IMarketable
     {
         public List<Products> Product { get; private set; }
         public List<ProductSale> ProductSales { get; private set; }
@@ -29,8 +30,7 @@ namespace MarketProgram.Data.Services
                 throw new ArgumentOutOfRangeException("ProductPrice");
             if (Quantity < 1)
                 throw new ArgumentOutOfRangeException("Quantity");
-            if (Id < 1)
-                throw new ArgumentOutOfRangeException("Id");
+           
 
             Products product = new();
             product.Name = Name;
@@ -49,8 +49,9 @@ namespace MarketProgram.Data.Services
                 throw new KeyNotFoundException();
             Product.RemoveAt(index);
         }
+        
 
-        public int AddSales(int No, string SaleItem)
+        public int AddSales(int No, double Price,string SaleItem,DateTime date)
         {
             if (No == null)
                 throw new ArgumentNullException("No");
