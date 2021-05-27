@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketProgram.Data.Common;
+using MarketProgram.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +8,28 @@ using System.Threading.Tasks;
 
 namespace MarketProgram.Data.Entities
 {
-    public class Products 
+    public class Products : BaseEntity
     {
-        private int count;
+        private static int count;
+
         public string Name { get; set; }
         public double ProductPrice { get; set; }
         public int Quantity { get; set; }
-        public int Id { get; set; }
+        public ProductsCategory Category { get; set; }
 
         public Products()
         {
             count++;
-            Id = count;
+
+            No = count;          
+            Category = ProductsCategory.xeta;
         }
+
+
+
+          
     }
-}
+        
+
+    }
+

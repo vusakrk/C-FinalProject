@@ -8,10 +8,12 @@ namespace MarketProgram.Data.Enums
 {
     public enum ProductsCategory
     {
+        xeta,
         Food,
         Meat,
         Drinks,
-        FruitsAndVegetables
+        Fruits,
+        Vegetables
 
     }
 }

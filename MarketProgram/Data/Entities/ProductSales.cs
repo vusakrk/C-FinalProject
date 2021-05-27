@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 
 namespace MarketProgram.Data.Entities
 {
-    public class ProductSale : BaseEntity
+    public class ProductSales : BaseEntity
     {
-        private int count;
+        private static int count;
+
         public int No { get; set; }
         public double Price { get; set; }
-        public string SaleItem { get; set; }
+        public List<SaleItem> SaleItems { get; set; }
         public DateTime Date { get; set; }
 
-        public ProductSale()
+        public ProductSales()
         {
             count++;
             No = count;
+           
+            SaleItems = new();
+            Date = DateTime.Now;
         }
 
-
+        
     }
 }
