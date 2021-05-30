@@ -47,7 +47,7 @@ namespace MarketProgram.Data.Services
             int quantity = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter the Category");
             Enum.TryParse<ProductsCategory>(Console.ReadLine(), true, out ProductsCategory category);
-            //Console.WriteLine($"default category {category}");
+            
 
 
             try
@@ -201,12 +201,31 @@ namespace MarketProgram.Data.Services
 
 
 
+
+
         #region
         //Sale operations
 
         public static void AddSale()
         {
+            try
+            {
+                Console.WriteLine("Enter the No");
+                int No = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter the price");
+                double price = double.Parse(Console.ReadLine());
+                Console.WriteLine("Enter the SaleItem");
+                string SaleItem = (Console.ReadLine());
+                Console.WriteLine("Enter the Date");
+                DateTime Date = DateTime.Parse(Console.ReadLine());
+                marketManage.AddSale(No);
+            }
+            catch (Exception e)
+            {
 
+                Console.WriteLine(e.Message);
+            }
+            
         }
         public static void ReturnSale()
         {
@@ -218,15 +237,49 @@ namespace MarketProgram.Data.Services
         }
         public static void DisplayAllSale()
         {
+            try
+            {
+                marketManage.DisplayAllSale();
+            }
+            catch (Exception e)
+            {
 
+                Console.WriteLine(e.Message);
+            }
+            var table = new ConsoleTable("No", "Price", "SaleItem", "date");
+            foreach (var productSale in marketManage.ProductSales)
+            {
+                table.AddRow(productSale.No,productSale.Price.ToString("#.00"),productSale.SaleItems,productSale.Date.ToString("MM/dd/yyyy"));
+            }
+            table.Write();
+            Console.WriteLine();
         }
         public static void DisplayDateRangeSale()
         {
 
         }
-        public static void DisplayMoneyRangeSale()
+        public static void  DisplayMoneyRangeSale()
         {
+            Console.WriteLine("Enter min value");
+            int minprice = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter max value");
+            int maxprice = int.Parse(Console.ReadLine());
+            try
+            {
+                marketManage.DisplayMoneyRangeSale( minprice, maxprice);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
 
+            }
+            //var table = new ConsoleTable("No", "Price", "ProductPrice", "Quantity", "Category");
+            //foreach (var item in marketManage.DisplayMoneyRangeSale(minprice, maxprice))
+            //{
+            //    table.AddRow(item.No, item.Price.ToString("#.00"), item.SaleItems, item.Date.ToString("MM/dd/yyyy"));
+            //}
+            //table.Write();
+            //Console.WriteLine();
         }
         public static void DisplayDateSale()
         {
@@ -234,33 +287,48 @@ namespace MarketProgram.Data.Services
         }
         public static void DisplayNoSale()
         {
+            Console.WriteLine("Plase enter No : ");
+            int  No = int.Parse(Console.ReadLine());
 
-        }
-
-        //internal static void AddProduct()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        #endregion
-
-
-
-
-
-
-
-
-        public static void DisplayProductSales()
-        {
-            var table = new ConsoleTable("No", "Price", "SaleItem", "Date");
-            foreach (var productSale in marketManage.ProductSales)
+            try
             {
-                table.AddRow(productSale.No, productSale.Price.ToString("#.00"), productSale.SaleItems.Sum(i => i.Quantity), productSale.Date);
+                
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+            var table = new ConsoleTable("No", "Price", "SaleItems", "Date");
+            foreach (var item in marketManage.DisplayNoSale(No))
+            {
+                table.AddRow(item.No, item.Price.ToString("#.00"), item.SaleItems, item.Date.ToString("MM/dd/yyyy"));
             }
             table.Write();
             Console.WriteLine();
         }
+
+        
+
+        
+
+
+
+
+
+
+
+
+        //public static void DisplayProductSales()
+        //{
+        //    var table = new ConsoleTable("No", "Price", "SaleItem", "Date");
+        //    foreach (var productSale in marketManage.ProductSales)
+        //    {
+        //        table.AddRow(productSale.No, productSale.Price.ToString("#.00"), productSale.SaleItems.Sum(i => i.Quantity), productSale.Date);
+        //    }
+        //    table.Write();
+        //    Console.WriteLine();
+        //}
         //public static void DisplaySaleItem()
         //{
         //    var table = new ConsoleTable("No", "Product", "Quantity");
@@ -274,3 +342,4 @@ namespace MarketProgram.Data.Services
 
     }
 }
+#endregion

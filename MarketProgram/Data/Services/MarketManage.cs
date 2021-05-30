@@ -25,18 +25,18 @@ namespace MarketProgram.Data.Services
         public int AddProduct(string Name, double ProductPrice, int Quantity,ProductsCategory category)
         {
             if (string.IsNullOrEmpty(Name))
-                throw new ArgumentNullException("Name","product's name is empty");
+                throw new ArgumentNullException("Name", "Product's name is empty");
             if (ProductPrice == 0)
-                throw new ArgumentOutOfRangeException("ProductPrice", "pRODUCT'S price is wrong");
+                throw new ArgumentOutOfRangeException("ProductPrice", "Product's price is wrong");
             if (ProductPrice < 0)
-                throw new ArgumentOutOfRangeException("ProductPrice","pRODUCT'S price can't less than 0");
+                throw new ArgumentOutOfRangeException("ProductPrice","Product's price can't less than 0");
             if (Quantity == 0)
-                throw new ArgumentOutOfRangeException("Quantity", "pRODUCT'S count is wrong");
+                throw new ArgumentOutOfRangeException("Quantity", "Product's count is wrong");
             if (ProductPrice < 1)
-                throw new ArgumentOutOfRangeException("Quantity", "pRODUCT'S count can't less than 0");
+                throw new ArgumentOutOfRangeException("Quantity", "Product's count can't less than 0");
 
             if (category == ProductsCategory.xeta)
-                throw new ArgumentNullException("category", "pRODUCT'S category is wrong");
+                throw new ArgumentNullException("category", "Product's category is wrong");
 
             Products product = new();
             product.Name = Name;
@@ -79,9 +79,6 @@ namespace MarketProgram.Data.Services
         {
             return Product.ToList();
         }
-
-
-
         public List<Products> SearchCategoryForProduct(ProductsCategory category)
         {
             return Product.Where(x => x.Category == category).ToList();
@@ -103,7 +100,6 @@ namespace MarketProgram.Data.Services
         {
             return Product.Where(i=>i.Name.Contains(productName)).ToList();
         }
-
         public int AddSales(int No, double Price,string SaleItem,DateTime date)
         {
             if (No == 0)
@@ -139,17 +135,55 @@ namespace MarketProgram.Data.Services
         {
             var DateList = ProductSales.Where(x => x.Date == date).ToList();
         }
-        public static void DisplayMoneyRangeSale()
+        public  void DisplayMoneyRangeSale(int minprice,int maxprice)
         {
-
+            var saleprice = ProductSales.FindAll(x => x.Price >= minprice && x.Price <= maxprice);
         }
         public static void DisplayDateSale()
         {
 
         }
-        public static void DisplayNoSale()
+        public List<ProductSales> DisplayNoSale(int No)
         {
+            return ProductSales.Where(x => x.No==No).ToList();
+        }
 
+
+
+
+
+
+
+
+
+        //public void DisplayCategoryProduct()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public void DisplayMoneyRangeProduct()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void DisplaySearchProduct()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddSale(int no)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddSale(int No, double Price, string SaleItem, DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IMarketable.DisplayAllSale()
+        {
+            throw new NotImplementedException();
         }
     }
 }
