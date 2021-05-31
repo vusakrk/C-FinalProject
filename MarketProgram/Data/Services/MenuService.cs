@@ -210,8 +210,7 @@ namespace MarketProgram.Data.Services
             string Price = Console.ReadLine();
             Console.WriteLine("Insert Sale Item");
             string SaleItem = Console.ReadLine();
-            Console.WriteLine("Insert Date");
-            string date = Console.ReadLine();
+            
             try
             {
                 marketManage.AddSale(int.Parse(No), double.Parse(Price), SaleItem);
@@ -279,9 +278,9 @@ namespace MarketProgram.Data.Services
         public static void DisplayAllSales()
         {
             var table = new ConsoleTable("No", "SalePrice", "Count", "Date");
-            foreach (var sale in marketManage.ProductSales)
+            foreach (var productSales in marketManage.ProductSales)
             {
-                table.AddRow(sale.No, sale.Price, sale.SaleItems.Count, sale.Date);
+                table.AddRow(productSales.No, productSales.Price, productSales.SaleItems.Count, productSales.Date);
             }
             table.Write();
             Console.WriteLine();

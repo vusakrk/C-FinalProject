@@ -112,10 +112,12 @@ namespace MarketProgram.Data.Services
             {
                 throw new ArgumentNullException("Bu qeder mehsul yoxdur");
             }
-            double b = (double)(result.ProductPrice * Quantity);
-            productSale.Price += b;
+            double p = (double)(result.ProductPrice * Quantity);
+            productSale.Price += p;
             saleItem.Product = result;
             saleItem.Quantity += Product.Count;
+            ProductSales.Add(productSale);
+            
         }
 
         public void ReturnSale(int no, string name, int count)
