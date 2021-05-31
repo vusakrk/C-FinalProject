@@ -15,22 +15,23 @@ namespace MarketProgram.Data.Common
         public List<ProductSales> ProductSales { get; set; }
 
 
-        //////public List<SaleItem> SaleItems { get; set; }
+      
 
-        public void AddSale(int No, double Price, string SaleItem, DateTime date);
-        //public void ReturnSale();
-        public void DisplayAllSale();
+        //public void AddSale(int No, double Price, string SaleItem);
+        //public void ReturnSale(int no, string name, int count);
+        //public void DeleteSales();
+        //public void DisplayAllSale();
         //public void DisplayDateRangeSale();
         //public void DisplayDateSale();
         //public void DisplayMoneyRangeSale();
         //public void DisplayNoSale();
-        public int AddProduct(string Name, double ProductPrice, int Quantity, ProductsCategory category);
-        public void EditProduct(int Id, string name, double ProductPrice, int Quantity, string category);
-        public void DeleteProduct(int key);
-        public List<Products> DisplayAllProducts();
-        public List<Products> SearchCategoryForProduct(ProductsCategory category);
-        public List<Products> SearchPriceRangeProduct(int minprice, int maxprice);
-        public List<Products> SearchNameForProduct(string productName);
+        //public int AddProduct(string Name, double ProductPrice, int Quantity, ProductsCategory category);
+        //public void EditProduct(int Id, string name, double ProductPrice, int Quantity, string category);
+        //public void DeleteProduct(int key);
+        //public List<Products> DisplayAllProducts();
+        //public List<Products> SearchCategoryForProduct();
+        //public List<Products> SearchPriceRangeProduct();
+        //public List<Products> SearchNameForProduct();
 
     }
 }

@@ -9,9 +9,9 @@ namespace MarketProgram.Data.Entities
 {
     public class SaleItem : BaseEntity
     {
-        private static int count;
+        private static int count=0;
         public int No { get; set; }
-        public string  Product { get; set; }
+        public Products  Product { get; set; }
         public int Quantity { get; set; }
         public SaleItem()
         {

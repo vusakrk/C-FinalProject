@@ -13,15 +13,13 @@ namespace MarketProgram.Data.Services
     {
         public List<Products> Product { get; set; }
         public List<ProductSales> ProductSales { get; set; }
-        //public List<SaleItem> SaleItems { get;  set; }
-
+        public int Quantity { get;  set; }
         public MarketManage()
         {
             Product = new();
             ProductSales = new();
-            //SaleItems = new();
+            
         }
-
         public int AddProduct(string Name, double ProductPrice, int Quantity,ProductsCategory category)
         {
             if (string.IsNullOrEmpty(Name))
@@ -43,12 +41,11 @@ namespace MarketProgram.Data.Services
             product.ProductPrice = ProductPrice;
             product.Quantity = Quantity;
             product.Category = category;
-            //product.Id = Id;
+            
 
             Product.Add(product);
             return product.No;
         }
-
         public void EditProduct(int Id,string name,double ProductPrice,int Quantity,string category)
         {
            
@@ -68,13 +65,6 @@ namespace MarketProgram.Data.Services
                 throw new KeyNotFoundException();
             Product.RemoveAt(index);
         }
-
-        //public List<Products> GetProducts()
-        //{
-        //    var distinctList = Product.Select(x => new { x.Id, x.Name, Quantity = Product.Count(y => y.Id == x.Id), x.ProductPrice }).Distinct();
-        //    return distinctList.Select(x => new Products { Id = x.Id, Name = x.Name, Quantity = x.Quantity, ProductPrice = x.ProductPrice }).ToList();
-        //}
-
         public List<Products> DisplayAllProducts()
         {
             return Product.ToList();
@@ -99,91 +89,101 @@ namespace MarketProgram.Data.Services
         public List<Products> SearchNameForProduct(string productName)
         {
             return Product.Where(i=>i.Name.Contains(productName)).ToList();
-        }
-        public int AddSales(int No, double Price,string SaleItem,DateTime date)
-        {
-            if (No == 0)
-                throw new ArgumentNullException("No");
-            if (string.IsNullOrEmpty(SaleItem))
-                throw new ArgumentNullException("SaleItem");
+        }            
 
+       
+        
+       
+        
+       
+
+        public void AddSale(int No, double Price, string SaleItem)
+        {
+            SaleItem saleItem = new();
             ProductSales productSale = new();
-            productSale.No = No;
-            //productSale.SaleItems. = SaleItem;
-            ProductSales.Add(productSale);
-            return productSale.No;
-
-            
-
+            int index = Product.FindIndex(x => x.No == No);
+            if (index == -1)
+            {
+                throw new ArgumentNullException("Bele mehsul yoxdur");
+            }
+            var result = Product.ElementAt(index);
+            result.Quantity = result.Quantity - Quantity;
+            if (result.Quantity < 0)
+            {
+                throw new ArgumentNullException("Bu qeder mehsul yoxdur");
+            }
+            double b = (double)(result.ProductPrice * Quantity);
+            productSale.Price += b;
+            saleItem.Product = result;
+            saleItem.Quantity += Product.Count;
         }
-        public static void ReturnSale()
-        {
 
+        public void ReturnSale(int no, string name, int count)
+        {
+            ProductSales productSales = ProductSales.FirstOrDefault(x => x.No == no);
+            if (productSales == null)
+            {
+                throw new ArgumentNullException("Bele satis movcud deyil");
+            }
+            SaleItem saleItem = productSales.SaleItems.FirstOrDefault(x => x.Quantity == count);
+            Products products = Product.FirstOrDefault(x => x.Name == name);
+            if (products == null)
+            {
+                throw new ArgumentNullException("Bele mehsul yoxdur");
+            }
+            productSales.SaleItems.Remove(saleItem);
+            products.Quantity += Quantity;
+            productSales.Price -= products.Quantity * count;
+            if (productSales.Price <= -1)
+            {
+                throw new ArgumentOutOfRangeException("Alinan malin qiymeti qaytarilan malin qiymetinden azdir");
+
+            }
+            if (saleItem.Quantity - count <= -1)
+            {
+                throw new ArgumentNullException("Secilen satisda kifayet qeder mehsul yoxdur");
+            }
+            productSales.SaleItems.Add(saleItem);
         }
         public void DeleteSales(int no)
         {
-            int index = ProductSales.FindIndex(d => d.No == no);
+            int index = ProductSales.FindIndex(x => x.No == no);
             if (index == -1)
-                throw new KeyNotFoundException();
+            {
+                throw new ArgumentNullException("Bele satis yoxdur");
+            }
             ProductSales.RemoveAt(index);
-        }
-        public List<ProductSales> DisplayAllSale()
-        {
-            return ProductSales;
-        }
-        public void DisplayDateRangeSale(DateTime date)
-        {
-            var DateList = ProductSales.Where(x => x.Date == date).ToList();
-        }
-        public  void DisplayMoneyRangeSale(int minprice,int maxprice)
-        {
-            var saleprice = ProductSales.FindAll(x => x.Price >= minprice && x.Price <= maxprice);
-        }
-        public static void DisplayDateSale()
-        {
+        }     
 
+        public List<ProductSales> DisplayDateRangeSale(DateTime date1, DateTime date2)
+        {
+            var result = ProductSales.FindAll(x => x.Date >= date1 && x.Date <= date2);
+            return result.ToList();
         }
+
+        public List<ProductSales> DisplayDateSale(DateTime Day)
+        {
+            var result = ProductSales.FindAll(x => x.Date.Day == Day.Day && x.Date.Month == Day.Month && x.Date.Year == Day.Year);
+            return result.ToList();
+        }
+
+        public List<ProductSales> DisplayMoneyRangeSale(double price1, double price2)
+        {
+            var result = ProductSales.FindAll(x => x.Price >= price1 && x.Price <= price2);
+            return result.ToList();
+        }
+
         public List<ProductSales> DisplayNoSale(int No)
-        {
-            return ProductSales.Where(x => x.No==No).ToList();
+    {
+            var result = ProductSales.FindAll(x => x.No == No);
+            if (result.Count == 0)
+            {
+                throw new ArgumentNullException($"{No} nomreli satis yoxdur");
+            }
+            return result;
         }
 
-
-
-
-
-
-
-
-
-        //public void DisplayCategoryProduct()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void DisplayMoneyRangeProduct()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public void DisplaySearchProduct()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddSale(int no)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddSale(int No, double Price, string SaleItem, DateTime date)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMarketable.DisplayAllSale()
-        {
-            throw new NotImplementedException();
-        }
+        
+       
     }
 }

@@ -100,28 +100,28 @@ namespace MarketProgram
                             switch (option2)
                             {
                                 case 1:
-                                    MenuService.AddSale();
+                                    MenuService.AddSales();
                                     break;
                                 case 2:
-                                    MenuService.ReturnSale();
+                                    MenuService.ReturnSales();
                                     break;
                                 case 3:
-                                    MenuService.DeleteSale();
+                                    MenuService.DeleteSales();
                                     break;
                                 case 4:
-                                    MenuService.DisplayAllSale();
+                                    MenuService.DisplayAllSales();
                                     break;
                                 case 5:
-                                    MenuService.DisplayDateRangeSale();
+                                    MenuService.DisplayForDateRangeSales();
                                     break;
                                 case 6:
-                                    MenuService.DisplayMoneyRangeSale();
+                                    MenuService.DisplayForPriceRangeSales();
                                     break;
                                 case 7:
-                                    MenuService.DisplayDateSale();
+                                    MenuService.DisplayDateSales();
                                     break;
                                 case 8:
-                                    MenuService.DisplayNoSale();
+                                    MenuService.DisplaySalesForNo();
                                     break;
                                 case 0:
 

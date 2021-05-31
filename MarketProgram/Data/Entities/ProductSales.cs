@@ -9,7 +9,7 @@ namespace MarketProgram.Data.Entities
 {
     public class ProductSales : BaseEntity
     {
-        private static int count;
+        private static int count=0;
 
         public int No { get; set; }
         public double Price { get; set; }
@@ -20,7 +20,6 @@ namespace MarketProgram.Data.Entities
         {
             count++;
             No = count;
-           
             SaleItems = new();
             Date = DateTime.Now;
         }
